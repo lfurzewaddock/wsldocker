@@ -4,7 +4,11 @@
 The following script creates matching function names for docker for Linux and Docker for Windows. It sets up the correct paths for mounting shares, giving you a pretty close experience of using Docker for Linux in WSL.
 
 ```bash
-curl -s https://raw.githubusercontent.com/leohinojosa/wsldocker/master/bash_docker > .bash_docker && chmod 666 .bash_docker && echo . ~/.bash_docker >> .bashrc && source ~/.bashrc
+curl -s \
+    https://raw.githubusercontent.com/leohinojosa/wsldocker/master/bash_docker > .bash_docker && \
+    chmod 666 .bash_docker && \
+    echo . ~/.bash_docker >> .bashrc && \
+    source ~/.bashrc
 ```
 
 ## Pre-reqs
@@ -19,7 +23,11 @@ curl -s https://raw.githubusercontent.com/leohinojosa/wsldocker/master/bash_dock
 1.In the WSL Terminal, run the following script to download the bash_docker aliases and source them to your .bashrc file:
 
 ```bash
-curl -s https://raw.githubusercontent.com/leohinojosa/wsldocker/master/bash_docker > ~/.bash_docker && chmod 666 ~/.bash_docker && echo . ~/.bash_docker >> .bashrc && source ~/.bashrc
+curl -s \
+    https://raw.githubusercontent.com/leohinojosa/wsldocker/master/bash_docker > .bash_docker && \
+    chmod 666 .bash_docker && \
+    echo . ~/.bash_docker >> .bashrc && \
+    source ~/.bashrc
 ```
 
 2. Run ``docker ps``
