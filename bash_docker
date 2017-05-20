@@ -1,37 +1,31 @@
-alias mountc="sudo mount -o bind /mnt/c /c"
-alias dm="/mnt/c/Program\ Files/Docker/Docker/resources/bin/docker-machine.exe"
-#alias docker-machine="/mnt/c/Program\ Files/Docker/Docker/resources/bin/docker-machine.exe"
+alias windows_docker_machine="/mnt/c/Program\ Files/Docker/Docker/resources/bin/docker-machine.exe"
 
+function docker-machine()
+{
+        if [ $1 == "env" ]; then
+               windows_docker_machine $1 $2 --shell=linux 2>/dev/null | sed 's/C:\\/\\c\\/' | tr '\\' '/'
+        else
+               windows_docker_machine "$@"
+        fi
+}
+export -f docker-machine
+
+function try_mount()
+{
+	if [ ! -f /c/windows-version.txt ]; then
+	    sudo mount -o bind /mnt/c /c
+	fi
+}
+export -f try_mount
 
 function docker_connect(){
-	dm env 2>/dev/null | sed 's/C:\\/\\c\\/' | tr '\\' '/'
+	docker-machine env 2>/dev/null | sed 's/C:\\/\\c\\/' | tr '\\' '/'
 }
 
 export -f docker_connect
 
-function docker-machine(){
-
-        if [ $1 == "env" ]; then
-                dm $1 $2 2>/dev/null | sed 's/C:\\/\\c\\/' | tr '\\' '/'
-        else
-                dm $1 $2 2>/dev/null
-        fi
-}
-
-export -f docker-machine
-alias dm=docker-machine
-
-function try_mount(){
-	if [ ! -f /c/windows-version.txt ]; then
-	    mountc
-	fi
-
-
-
-}
-export -f try_mount
-
 eval$(try_mount)
 eval $(docker_connect)
 
+alias dm=docker-machine
 alias denv='docker_connect'
