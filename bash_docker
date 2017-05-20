@@ -3,7 +3,7 @@ alias windows_docker_machine="/mnt/c/Program\ Files/Docker/Docker/resources/bin/
 function docker-machine()
 {
         if [ $1 == "env" ]; then
-               windows_docker_machine $1 $2 --shell=linux 2>/dev/null | sed 's/C:\\/\\c\\/' | tr '\\' '/'
+               windows_docker_machine $1 $2 --shell=linux 2>/dev/null | sed 's/C:/\/c/g; s/\\/\//g'
         else
                windows_docker_machine "$@"
         fi
